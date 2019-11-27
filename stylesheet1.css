@@ -1,0 +1,42 @@
+body{
+    background-color: darkslategrey;
+}
+.selectedBtn{
+    height: 70px;
+    width: 70px;
+    border-radius: 50%;
+    outline: none;
+}
+#parent{
+    /*border: solid 1px black;*/
+    margin: 25px;
+    padding: 10px;
+    /*width: 25%;*/
+    text-align: center;
+
+}
+
+#userValue{
+    width: 50px;
+}
+img{
+    height: 800px;
+    width: 800px;
+    margin-left: 350px;
+}
+#child{
+    width: 70%;
+    /*border: solid 3px black;*/
+    margin-left: 15%;
+}
+
+h1,label{
+    color: white;
+}
+
+
+
+#child input{
+    width: 70px;
+    height: 70px;
+}

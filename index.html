@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Learning English</title>
+        <link rel="stylesheet" href="stylesheet1.css">
+  
+    </head>
+    <body>
+        <div id="parent">
+            <h1>Learn the English Letters</h1>
+            <label>Number of Letters: </label>
+            <input type="number" id="userValue">
+            <input type="button" value="Generate" id="generate">
+            <br>
+            <div id="child"></div>
+        </div>
+        <img >
+    </body>
+    <script>
+        setInterval(function(e){localStorage.clear();} , 5000);
+        var g = 1;
+        function store(type,target,time){
+            this.type=type;
+            this.target=target;
+            this.time=time;
+            this.str=this.type + ' , ' +this.target + ' , ' + this.time;
+        }
+        var lettersArray =   ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
+        
+        window.addEventListener("load",function(e){
+            var storeStrLoad =new store(e.type,e.target,new Date()); 
+            if(localStorage.key("Page Loading")){
+                var a = Array(localStorage.getItem("Page Loading"));
+                a.push(storeStrLoad.str);
+                localStorage.setItem("Page Loading",a);
+            }
+            else{
+                localStorage.setItem("Page Loading",storeStrLoad.str);
+            }
+        });
+
+        window.addEventListener("unload",function(e){
+            var storeStrUnload =new store(e.type,e.target,new Date()); 
+            if(localStorage.key("Page UnLoading")){
+                var a = Array(localStorage.getItem("Page UnLoading"));
+                a.push(storeStrUnload.str);
+                localStorage.setItem("Page UnLoading",a);
+            }
+            else{
+                localStorage.setItem("Page UnLoading",storeStrUnload.str);
+            }
+        });
+
+        var flag = false;
+        var generateBtn = document.getElementById("generate");
+        generateBtn.addEventListener("click" , function(e){
+            var userValue = parseInt(document.getElementById("userValue").value,10);
+            var showDiv = document.getElementById("child");
+            if(userValue>=1 && userValue<=26){
+                showDiv.innerHTML="";
+                showImg = document.getElementsByTagName("img")[0];
+                showImg.src="";
+                var array = [];
+                for(var i=0;i<userValue;i++){
+                    var b=true;
+                    while(b){
+                        var c = rand();
+                        var numberOfDiffrentCharactersInArray = 0;
+                        for(var j=0;j<array.length;j++){
+                            if(c!=array[j]){
+                                numberOfDiffrentCharactersInArray++;
+                            }
+                        }
+                        if(numberOfDiffrentCharactersInArray==array.length){
+                            array[i]=c;
+                            b=false;
+                        }
+                    }
+                }
+                for(var i=0;i<array.length;i++){
+                    var character = lettersArray[array[i]];
+                    var nodeText = document.createTextNode(character);
+                    var newBtn = document.createElement("button");
+                    newBtn.appendChild(nodeText);
+                    newBtn.style.margin="3px";
+                    
+                    /*newBtn.style.height="70px";
+                    newBtn.style.width="70px";
+                    
+                    newBtn.style.borderRadius="50%";
+                    newBtn.style.outline="none";
+                    */
+                    newBtn.style.border="solid 1px rgb(51, 21, 221)"
+                    newBtn.style.backgroundColor="rgb(51, 21, 221)";
+                    newBtn.setAttribute("class","selectedBtn");
+                    showDiv.appendChild(newBtn);
+                }
+                var btnsArray = document.getElementsByTagName("button");
+                for(var i=0;i<btnsArray.length;i++){
+                    //alert(i);
+                    btnsArray[i].addEventListener("click",function(e){
+                        show(e.target.textContent);
+                        var storeStrBtn =new store(e.type,e.target,new Date()); 
+                        if(localStorage.key(e.target.textContent + "Button")){
+                            var a = Array(localStorage.getItem(e.target.textContent + "Button"));
+                            a.push(storeStrBtn.str);
+                            localStorage.setItem(e.target.textContent + "Button",a);
+                        }
+                        else{
+                            localStorage.setItem(e.target.textContent + "Button",storeStrBtn.str);
+                        }
+                        //localStorage.setItem("Button " + e.target.textContent + " Clicked " + frequancyArray[e.target.textContent.charCodeAt(0)-65]++ , storeStrBtn.str);
+                    });
+                }
+            }
+            else{
+                alert("Invalid Input");
+                //document.location.reload(true);
+                //window.location.reload(true);
+                var userInp = document.getElementById("userValue");
+                userInp.value="";
+            }
+            var storeStrGenerate =new store(e.type,e.target,new Date()); 
+            if(localStorage.key("Generate Button")){
+                var a = Array(localStorage.getItem("Generate Button"));
+                a.push(storeStrGenerate.str);
+                localStorage.setItem("Generate Button",a);
+            }
+            else{
+                localStorage.setItem("Generate Button",storeStrGenerate.str);
+            }
+            
+        });
+        function rand(){
+            return Math.floor(Math.random()*26);
+        }
+        function show(character){
+            var showImg = document.getElementsByTagName("img")[0];
+            var imgSrc = "images/";
+            imgSrc+= character;
+            imgSrc+= ".jpg";
+            //alert(imgSrc);
+            showImg.src=imgSrc;
+        }
+    </script>
+</html>
