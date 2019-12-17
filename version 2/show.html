@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Learning English</title>
+        <link rel="stylesheet" href="stylesheet1.css">
+    </head>
+    <body>
+        <table>
+            <th>
+                <td>Type</td>
+                <td>Target</td>
+                <td>Time</td>
+            </th>
+        </table>
+    </body>
+    <script src="jquery-3.4.1.min.js"></script>
+    <script>
+        $.ajax({
+            "type"      :   "GET",
+            "url"       :   "backend.php",
+            "data"      :   {"object" : ""},
+            "success"   :   function(response){
+                if(response){
+                    var rec = JSON.parse(response);
+                    console.log(typeof response);
+                    console.log(typeof rec);
+                    console.log(rec);
+                    for(var i=0;i<rec.length;i++){
+                        $child = '<tr><td>' + rec[i]["type_"] + '</td><td>' + rec[i]["target_"] + '</td><td>' + rec[i]["time_"] + '</td></tr';
+                        $("table").append($child);
+                    }
+                }
+            },
+        });
+    </script>
+    
+</html>

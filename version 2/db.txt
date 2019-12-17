@@ -1,0 +1,8 @@
+create database web2db;
+use web2db;
+create table objects(
+type_ varchar(100),
+target_ varchar(100),
+time_ varchar(100)
+);
+select * from objects;
